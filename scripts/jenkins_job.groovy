@@ -5,7 +5,7 @@ pipelineJob('web_application_deployment'){
     }
     definition {
         triggers {
-        scm('* * * * *')
+             githubPush()
         }
        cpsScm {
             scm {
