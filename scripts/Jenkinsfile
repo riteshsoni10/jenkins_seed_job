@@ -76,9 +76,9 @@ pipeline{
                         env.DEPLOYMENT_STATUS_CODE= 0
                     }catch(e){
                         println("Application is not yet Deployed")
-                        env.DEPLOYMENT_STATUS_CODE=1
+                        env.DEPLOYMENT_STATUS_CODE = 1
                     }  
-                    if (DEPLOYMENT_STATUS_CODE != 1){
+                    if (DEPLOYMENT_STATUS_CODE != "1"){
                         def container_name = sh( label:"Container_Name", script: 'kubectl get deploy $CODE_BASE -n $JOB_NAME -o jsonpath="{.spec.template.spec.containers[*].name}"', returnStdout: true)
                         //Rollout of new application
                         try{
@@ -131,7 +131,7 @@ pipeline{
                 script{
                     def application_port = sh(label:"Application Port", script: "kubectl get svc $CODE_BASE -n $JOB_NAME -o jsonpath=\"{.spec.ports[0].nodePort}\"", returnStdout: true)
                     def application_status = sh(label:"Testing Application", script: "curl -s -w \"%{http_code}\" -o /dev/null $KUBERNETES_CLUSTER_IP:$application_port", returnStdout: true)
-                    if (application_status == 200){
+                    if (application_status == "200"){
                         println("Application is working Fine")
                     }    
                     else{
@@ -144,9 +144,6 @@ pipeline{
                     script{
                         if ( GIT_BRANCH == "origin/develop" ){
                             println("Merging  Code to Production Code Base")
-
-                            sh 'git config user.email riteshk.296@gmail.com'
-                            sh 'git config user.name riteshsoni10'
                             sh 'git fetch --all'
                             sh 'git checkout origin/master'
                             sh 'git merge origin/develop'
@@ -154,6 +151,9 @@ pipeline{
                             withCredentials([usernamePassword(credentialsId: 'GITHUB_CREDENTIALS', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                                 sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/riteshsoni10/demo_website.git HEAD:master')
                             }
+                        }
+                        else{
+                            println("Aplication Tested Successfully")
                         }
                     }
                 }
