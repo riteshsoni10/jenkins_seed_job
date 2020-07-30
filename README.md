@@ -159,7 +159,7 @@ We need to configure the docker hub credentials repository where we will be uplo
 </p>
 
 
-**Similiarly configure the GITHUB_CREDETIALS in Jenkins Server** This is `neccesary` to `merge` *develop branch* code to *master branch* if the application testing succeeds for code in develop branch
+**Similiarly configure the GITHUB_CREDENTIALS in Jenkins Server** This is `neccesary` to `merge` *develop branch* code to *master branch* if the application testing succeeds for code in develop branch
 
 
 ## Configure Jenkins Seed Job 
@@ -247,7 +247,7 @@ Build triggers notify when the job will be executed.  For now, Poll SCM variable
 
 ## Understanding Jenkinsfile for Pipeline
 
-In this project, two jenkins pipelines are created for `develop` and `master` branches respectively. Jenkins pipeline can be scripted in two ways i.e `scripted` and `declarative` approach. The project implements Declarative pipeline to execute different stages. The various stages for Production Environment Jenkins Job is explained below.
+In this project, two jenkins pipelines are created for `develop` and `master` branches respectively. Jenkins pipeline can be scripted in two ways i.e `scripted` and `declarative` approach. The project implements Declarative pipeline to execute different stages. The various stages for Production Environment Jenkins Job is explained below. The complete Jenkins pipeline script in uploaded in the current respository at location `scripts/jenkins_pipeline`.
 
 **Stage 1:** Declarative Checkout
 
