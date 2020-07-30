@@ -4,7 +4,7 @@ The most tiresome work is to wait for someone. The project automates the tasks f
 
 **Project Infra Diagram**
 <p align="center">
-  <img src="screenshots/infra_flow.png" width="800" title="Jenkins Configure Security">
+  <img src="infra_flow.png" width="800" title="Jenkins Configure Security">
   <br>
   <em>Fig 1.: Infra Diagram </em>
 </p>
