@@ -1,0 +1,93 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: jenkins-ns
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins-svc
+  labels:
+    tier: frontend
+    app: loadbalancer
+  namespace: jenkins-ns
+spec:
+  selector:
+    app: jenkins
+    tier: frontend
+    region: INDIA
+  type: LoadBalancer
+  ports:
+  - port: 8080
+    protocol: TCP
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jenkins-pvc
+  labels:
+    app: storage
+  namespace: jenkins-ns
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins
+  labels:
+    tier: frontend
+    app: jenkins-deployment
+  namespace: jenkins-ns
+spec:
+  selector:
+    matchLabels:
+      app: jenkins
+      tier: frontend
+      region: INDIA
+  template:
+    metadata:
+      name: jenkins-pod
+      labels:
+        app: jenkins
+        tier: frontend
+        region: INDIA 
+    spec:
+      containers:
+      - name: jenkins-container
+        image: riteshsoni296/jenkins_kubectl:v2
+        env:
+          - name: "KUBERNETES_CLUSTER_IP"
+            value: "192.168.99.106"
+          - name: "CA_CERTIFICATE"
+            value: "ca.crt"
+          - name: "CLIENT_CERTIFICATE"
+            value: "client.crt"
+          - name: "CLIENT_KEY"
+            value: "client.key"
+          - name: "JENKINS_HOME"
+            value: "/var/lib/jenkins"
+        volumeMounts:
+        - name: jenkins-volume
+          mountPath: /var/lib/jenkins
+        - name: docker-socket-volume
+          mountPath: /var/run/docker.sock
+        securityContext:
+          privileged: true
+        volumes:
+          
+      volumes:
+      - name: jenkins-volume
+        persistentVolumeClaim:
+          claimName: jenkins-pvc
+      - name: docker-socket-volume
+        hostPath:
+          path: /var/run/docker.sock
+          type: File
