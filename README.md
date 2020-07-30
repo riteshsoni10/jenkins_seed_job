@@ -16,7 +16,7 @@ The most tiresome work is to wait for someone. The project automates the tasks f
 
 ### Jenkins Image using Dockerfile
 
-The Dockerfile is created from the `alpine:latest` linux image minimising the storage required to run the jenkins container. The image contains the kubectl binary to launch the kubernetes resources. The files for authentication is copied in the image. You can create the custom image using the already provided image `riteshsoni296/jenkins_kubectl:v2` and paste the kubernetes authentication files i.e; client.crt,client.key and ca.crt. The kubectl *config.template* file is present in the scripts directory in the repository
+The Dockerfile is created from the `alpine:latest` linux image minimising the storage required to run the jenkins container. The image contains the kubectl binary to launch the kubernetes resources. The files for authentication is copied in the image. You can create the custom image using the already provided image `riteshsoni296/jenkins_kubectl:v2` and paste the kubernetes authentication files i.e; client.crt,client.key and ca.crt. The kubectl *config.template* file is present in the scripts/Jenkins_image directory in the repository
 
 The dockerfile extract to be as follows :
 
@@ -253,6 +253,12 @@ In this project, two jenkins pipelines are created for `develop` and `master` br
 
   In declarative pipeline, the SCM checkout stage is predefined i.e; it is not compulsory to define an different stage for checkout of the code repository.
   
+ <p align="center">
+  <img src="screenshots/console_scm.png" width="800" title="Pipeline Checkout Stage">
+  <br>
+  <em>Fig 16.: Checkout stage  </em>
+</p>
+
 **Stage 2:** Detect Code Base
 
   The stage deals with checking the code base of the code repository i.e the language of the code present in the repository. Currently it only detects HTMl and PHP code bases.
@@ -267,6 +273,12 @@ The stage builds a new image whenever the Job is triggered whenever a SCM change
   
   - `IMAGE_VERSION`: Created based on `BRANCH` and `BUILD_NUMBER` i.e for example BUILD_NUMBER=10, in case master branch *RELEASE_v10*, whereas for develop branch *TEST_v10*.
       
+  <p align="center">
+  <img src="screenshots/console_build_image.png" width="800" title="Pipeline Build Image Stage">
+  <br>
+  <em>Fig 17.: Build Image stage  </em>
+</p>
+     
 **Stage 4:** Image Repo Login
 
 Docker Hub Login using credentials configured earlier.
@@ -274,6 +286,12 @@ Docker Hub Login using credentials configured earlier.
 **Stage 5:** Push Image
 
 Pushes the image built in Stage 3 to Docker Hub repository.
+
+  <p align="center">
+  <img src="screenshots/console_push_image.png" width="800" title="Pipeline Push Image Stage">
+  <br>
+  <em>Fig 18.: Push Image stage  </em>
+</p>
 
 **Stage 6:** Application Namespace
 
@@ -283,13 +301,38 @@ Kubernetes namespace resource based on job-name i.e prod-env and test-env; in ca
 
 Checks for the deployment resource in Kubernetes in the application namespace as found in earlier stage. If the application deployment is present, then new application is rolled out otherwise the stage outputs message `Application is not yet deployed`.
 
+  <p align="center">
+  <img src="screenshots/console_rollout.png" width="800" title="Pipeline Rollout Stage">
+  <br>
+  <em>Fig 19.: Application Rollout stage when application is already Deployed  </em>
+</p>
+
+  <p align="center">
+  <img src="screenshots/console_rollout_2.png" width="800" title="Pipeline Rollout Stage">
+  <br>
+  <em>Fig 20.: Application Rollout stage when Application is not deployed  </em>
+</p>
+
 **Stage 8:** Application Deployment
 
 This stage executes only if the above stage returns message `Application is not yet deployed`. This stage creates the new deployment for the application and exposes the applicaton using Service resource.
 
+ <p align="center">
+  <img src="screenshots/console_application.png" width="800" title="Pipeline Deployment Stage">
+  <br>
+  <em>Fig 21.: Application Deployment stage  </em>
+</p>
+
+
 **Stage 9:** Application Testing
 
 Currently this stage tests the application bases on the `HTTP_STATUS` code returned when hitting the application URL. The post stage steps are defined in this stage to either send and email to commiter in case of test failure or merge the branch to master if the current_branch is `develop` and the application test is successful
+
+ <p align="center">
+  <img src="screenshots/console_test.png" width="800" title="Pipeline Test Stage">
+  <br>
+  <em>Fig 22.: Application Testing stage  </em>
+</p>
 
 `Post Stage Steps` 
 
@@ -305,7 +348,7 @@ An email is sent to the commiter's email with the build result and logs to furth
  <p align="center">
   <img src="screenshots/production_env_job_rollout.png" width="800" title="Pipeline Stages">
   <br>
-  <em>Fig 15.: Production Pipeline Stages  </em>
+  <em>Fig 23.: Production Pipeline Stages  </em>
 </p>
 
 
