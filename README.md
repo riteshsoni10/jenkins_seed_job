@@ -313,6 +313,6 @@ In the above image,
   - Build Number 6  represents when the application is already deployed.
   
 
-> Source: [LinuxWorld Informatics Pvt. Ltd](http://www.linuxworldindia.org/)
+> Source: LinuxWorld Informatics Pvt. Ltd
 >
 > Under guidance of: [Mr. Vimal Daga](https://in.linkedin.com/in/vimaldaga)
