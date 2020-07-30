@@ -157,7 +157,9 @@ We need to configure the docker hub credentials repository where we will be uplo
   <em>Fig 9.: Add Credentials in Jenkins  </em>
 </p>
 
-**Similiarly configure the DOCKER_HUB_CREDETIALS in Jenkins Server**
+
+**Similiarly configure the GITHUB_CREDETIALS in Jenkins Server** This is `neccesary` to `merge` *develop branch* code to *master branch* if the application testing succeeds for code in develop branch
+
 
 ## Configure Jenkins Seed Job 
 
