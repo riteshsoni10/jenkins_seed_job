@@ -308,9 +308,9 @@ An email is sent to the commiter's email with the build result and logs to furth
 
 In the above image, 
     
-  - Build Number 5 represents first time application deployment
+  - Build Number 5 represents `first time application deployment`
    
-  - Build Number 6  represents when the application is already deployed.
+  - Build Number 6  represents when the rollout of `application already deployed` is preformed.
   
 
 > Source: LinuxWorld Informatics Pvt. Ltd
