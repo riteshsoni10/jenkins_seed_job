@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Config
+
+clusters:
+- cluster:
+    server: https://${KUBERNETES_CLUSTER_IP}:8443
+    certificate-authority: ${CA_CERTIFICATE}
+  name: minikube
+
+contexts:
+- context:
+    user: minikube
+    cluster: minikube
+  name: minikube_cluster
+
+current-context: minikube_cluster
+
+users:
+- name: minikube
+  user:
+    client-key: ${CLIENT_KEY}
+    client-certificate: ${CLIENT_CERTIFICATE}
+
