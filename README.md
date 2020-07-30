@@ -239,7 +239,7 @@ Build triggers notify when the job will be executed.  For now, Poll SCM variable
 3. *Pipeline Stage*
 
  <p align="center">
-  <img src="screenshots/job_prod_env_pipeline_stage.png" width="800" title="Pipeline Stage">
+  <img src="screenshots/job_prod_env_pripeline_stage.png" width="800" title="Pipeline Stage">
   <br>
   <em>Fig 15.: Pipeline Stage  </em>
 </p>
