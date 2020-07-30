@@ -1,11 +1,12 @@
 # Application Deployment on Kubernetes Cluster using Jenkins DSL Pipeline
-Automated Web Application Deployment using Jenkins Seed Job using DSL Language on Kubernetes Cluster. Jenkins Groovy pipeline for different stages during the process of deployment
 
+The most tiresome work is to wait for someone. The project automates the tasks from the process of Job creation for testing and production environment to testing the application. Web Application Deployment is automated using Jenkins Seed Job in DSL Language on Kubernetes Cluster. Jenkins pipeline in Groovy language to implement different stages during the process of deployment.
 
+**Project Infra Diagram**
 <p align="center">
-  <img src="screenshots/jenkins_configure_security.png" width="800" title="Jenkins Configure Security">
+  <img src="screenshots/infra_flow.png" width="800" title="Jenkins Configure Security">
   <br>
-  <em>Fig 1.: Production Environment Infra Flow </em>
+  <em>Fig 1.: Infra Diagram </em>
 </p>
 
 
@@ -187,7 +188,7 @@ The DSL script is uploaded in the Code repository. So the DSL scipt will be refe
   We are only tracking the master branch, since the code is pushed finally in master branch.
 
 <p align="center">
-  <img src="screenshots/dsl_scmy.png" width="800" title="SCM Configure">
+  <img src="screenshots/dsl_scm.png" width="800" title="SCM Configure">
   <br>
   <em>Fig 11.: Source Code Management Configuration  </em>
 </p>
@@ -238,7 +239,7 @@ Build triggers notify when the job will be executed.  For now, Poll SCM variable
 3. *Pipeline Stage*
 
  <p align="center">
-  <img src="screenshots/job_env_prod_pipeline_stage.png" width="800" title="Pipeline Stage">
+  <img src="screenshots/job_prod_env_pipeline_stage.png" width="800" title="Pipeline Stage">
   <br>
   <em>Fig 15.: Pipeline Stage  </em>
 </p>
@@ -314,6 +315,14 @@ In the above image,
    
   - Build Number 6  represents when the rollout of `application already deployed` is preformed.
   
+ Application Resources on Kubernetes Cluster
+ 
+ <p align="center">
+  <img src="screenshots/application-resources.png" width="800" title="Resources">
+  <br>
+  <em>Fig 16.: Application Resources </em>
+</p>
+
 
 > Source: LinuxWorld Informatics Pvt. Ltd
 >
